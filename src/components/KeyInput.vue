@@ -1,29 +1,28 @@
 <template>
-    <textarea id="" name="" cols="30" rows="10"></textarea>
-    <textarea 
-        style="position: relative " 
-        :style="textPos" 
-        v-model="text"
-        @keyup="key"
-    />
-    {{$store.state.words}}
+    <div>
+      <textarea 
+          style="position: relative " 
+          :style="textPos" 
+          v-model="text"
+          @keyup="keyup"
+          @keydown="keydown"
+      />
+    </div>
 </template>
 <script>
 export default {
   methods: {
-    mousemove(e) {
-      this.x = e.clientX;
-      this.y = e.clientY;
-    },
     clear() {
-      this.$nextTick(() => (this.text = ""));
+      this.text = "";
     },
-    key(e) {
+    keyup(e) {
       if (e.key == "Enter") {
-        if (this.text !== "") this.$store.commit("add", this.text);
+        this.text = this.text.slice(0, -1);
+        if (this.text !== "") this.$emit("enter", this.text);
         this.clear();
       }
-    }
+    },
+    keydown() {}
   },
   computed: {
     textPos() {
@@ -34,7 +33,9 @@ export default {
     }
   },
   data() {
-    return { x: 0, y: 0, text: "" };
+    return {
+      text: ""
+    };
   }
 };
 </script>

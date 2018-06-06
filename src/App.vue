@@ -1,13 +1,26 @@
 <template>
   <div id="app">
+      <div @mousedown="e =>log(e)">
       <SVGArea />
+      </div>
+      <KeyInput @enter="text => $store.commit('add', text)"/>
+      {{$store.state.words}}
   </div>
 </template>
 <script>
 import SVGArea from "@/components/SVGArea";
+import KeyInput from "@/components/KeyInput";
 export default {
   components: {
-    SVGArea
+    SVGArea,
+    KeyInput
+  },
+  methods: {
+    log(e) {
+      if (e.target.tagName === "rect") {
+        console.log(e.target);
+      }
+    }
   }
 };
 </script>

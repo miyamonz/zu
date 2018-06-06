@@ -10,6 +10,9 @@ export default new Vuex.Store({
   mutations: {
     add(state, w) {
       state.words.push(w);
+    },
+    clear(state) {
+      state.words = [];
     }
   },
   actions: {}
