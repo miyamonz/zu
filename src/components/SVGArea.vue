@@ -15,20 +15,13 @@
 <script>
 import TextNode from "@/components/TextNode";
 import Guideline from "@/components/Guideline";
-let x = 0;
-let y = 0;
+import { merge } from "@/util";
+
 const height = 50;
 
-const repeatAfter = (func, after) => (...args) => {
-  const ret = func(...args);
-  after();
-  return ret;
-};
 const textToRect = text => {
   return {
     text,
-    x,
-    y,
     width: 100,
     height,
     style: {
@@ -44,14 +37,13 @@ export default {
   },
   computed: {
     rects() {
-      x = this.x;
-      y = this.y;
       const { words } = this.$store.state;
-      const mapWithIncrement = repeatAfter(
-        textToRect,
-        () => (y += height + 10)
-      );
-      return words.map(mapWithIncrement);
+      const { points } = this.$store.getters;
+      return merge(words.map(textToRect), points).map(([rect, { x, y }]) => ({
+        ...rect,
+        x: x + 300,
+        y: y + 300
+      }));
     }
   },
   methods: {

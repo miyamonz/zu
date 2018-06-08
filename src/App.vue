@@ -3,7 +3,7 @@
       <div @mousedown="e =>log(e)">
       <SVGArea />
       </div>
-      <KeyInput @enter="text => $store.commit('add', text)"/>
+      <KeyInput @enter="text => $store.commit('addWord', text)"/>
       {{$store.state.words}}
   </div>
 </template>
