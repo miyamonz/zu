@@ -1,14 +1,15 @@
 <template>
     <div>
       <svg @mousedown="click">
+          <Guideline :x="x"/>
+          <Guideline :y="y"/>
           <TextNode 
           v-for="(r,i) in rects"
           :key="i" 
           :rect="r"
           :text="r.text"
+          :style="r.style"
           />
-          <Guideline :x="x"/>
-          <Guideline :y="y"/>
       </svg>
     </div>
 </template>
@@ -17,15 +18,14 @@ import TextNode from "@/components/TextNode";
 import Guideline from "@/components/Guideline";
 import { merge } from "@/util";
 
-const height = 50;
-
 const textToRect = text => {
   return {
     text,
-    width: 100,
-    height,
+    width: 50,
+    height: 50,
     style: {
-      fill: "yellow"
+      fill: "none"
+      // visibility: "hidden"
     }
   };
 };
@@ -41,8 +41,8 @@ export default {
       const { points } = this.$store.getters;
       return merge(words.map(textToRect), points).map(([rect, { x, y }]) => ({
         ...rect,
-        x: x + 300,
-        y: y + 300
+        x: x + this.x - rect.width / 2,
+        y: y + this.y - rect.height / 2
       }));
     }
   },
@@ -64,8 +64,8 @@ export default {
   },
   data() {
     return {
-      x: 100,
-      y: 10
+      x: 300,
+      y: 300
     };
   }
 };
