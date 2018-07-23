@@ -1,14 +1,15 @@
 <template>
     <div>
       <svg>
-          <Guideline :x="$store.state.root.x"/>
-          <Guideline :y="$store.state.root.y"/>
-          <transition-group tag="g">
+        <Guideline :x="$store.state.root.x"/>
+        <Guideline :y="$store.state.root.y"/>
+        <transition-group tag="g">
           <BaseNode 
-          v-for=" node in $store.state.nodes"
-          :key="node.id"
-          :node="node"/>
-          </transition-group>
+           v-for=" node in $store.state.nodes"
+           :key="node.id"
+           :node="node"
+          />
+        </transition-group>
       </svg>
     </div>
 </template>
@@ -41,4 +42,5 @@ rect {
   fill: yellow;
   stroke: blue;
 }
+
 </style>

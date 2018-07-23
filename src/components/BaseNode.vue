@@ -2,18 +2,15 @@
     <g
     @mouseover="active = true"
     @mouseleave="active = false"
+    class="base-node"
     >
-    <circle
-    :class="{active}"
-    :cx="pos.x" :cy="pos.y" r="20"/>
-    <text
-    :x="pos.x" :y="pos.y"
-    >{{node.id}}
-    </text>
-    <line
-    :x1="beforePos.x" :y1="beforePos.y"
-    :x2="pos.x" :y2="pos.y"
-    />
+      <circle
+      :class="{active}"
+      :cx="pos.x" :cy="pos.y" r="20"/>
+      <text
+      :x="pos.x" :y="pos.y"
+      >{{node.id}}
+      </text>
     </g>
 </template>
 <script>
@@ -41,8 +38,8 @@ export default {
 };
 </script>
 <style scoped>
-* {
-  /* transition: all 1.2s; */
+.base-node {
+  transition: all 1.2s;
 }
 circle {
   fill: white;
