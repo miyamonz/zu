@@ -7,10 +7,7 @@
       <circle
       :class="{active}"
       :cx="pos.x" :cy="pos.y" r="20"/>
-      <text
-      :x="pos.x" :y="pos.y"
-      >{{node.id}}
-      </text>
+      <slot/>
     </g>
 </template>
 <script>
