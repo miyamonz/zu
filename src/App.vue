@@ -4,7 +4,7 @@
       <SVGArea />
       </div>
       <KeyInput @enter="text => $store.commit('addWord', text)"/>
-      {{$store.state.nodes}}
+     {{$store.state}}
   </div>
 </template>
 <script>
