@@ -1,8 +1,8 @@
 <template>
     <div>
       <svg>
-        <Guideline :x="$store.state.root.x"/>
-        <Guideline :y="$store.state.root.y"/>
+        <Guideline :x="$store.state.x"/>
+        <Guideline :y="$store.state.y"/>
         <transition-group tag="g">
           <BaseNode 
            v-for="node in $store.state.nodes"

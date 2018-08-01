@@ -16,12 +16,12 @@ export const rotate = ({ radius }) => rad => ({
   y: radius * Math.cos(rad * 2 * Math.PI)
 });
 
-export const getPositionById = ({ root }, { scan, rotate }) => id => {
+export const getPositionById = ({ x, y }, { scan, rotate }) => id => {
   let idx = scan.findIndex(n => n.id === id);
   if (idx === -1) return null;
   let rot = rotate(idx / scan.length);
   return {
-    x: rot.x + root.x,
-    y: rot.y + root.y
+    x: rot.x + x,
+    y: rot.y + y
   };
 };
