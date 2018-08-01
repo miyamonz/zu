@@ -11,6 +11,7 @@ const loadImg = src => {
     img.onload = () => {
       resolve(img);
     };
+    img.onerror = reject;
     img.src = src;
   });
 };
@@ -29,8 +30,12 @@ export default {
     url() {
       const project = "icons";
       const url = `https://scrapbox.io/api/pages/${project}/${this.text}/icon`;
-      loadImg(url).then(() => (this.fetched = true));
       return url;
+    }
+  },
+  watch: {
+    url(url) {
+      loadImg(url).then(() => (this.fetched = true));
     }
   },
   methods: {},
