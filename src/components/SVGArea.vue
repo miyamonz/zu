@@ -3,30 +3,29 @@
       <svg>
         <Guideline :x="$store.state.x"/>
         <Guideline :y="$store.state.y"/>
-        <transition-group tag="g">
-          <BaseNode 
-           v-for="node in $store.state.nodes"
-           :key="node.id"
-           :node="node"
-          >
-            <ImageNode :rect="rect(node)" :text="$store.state.words[node.id]"/>
-          </BaseNode>
-        </transition-group>
+
+        <tree-node :root="$store.state.root" />
       </svg>
     </div>
 </template>
 <script>
 import ImageNode from "@/components/ImageNode";
+import TreeNode from "@/components/TreeNode";
 import BaseNode from "@/components/BaseNode";
 import Guideline from "@/components/Guideline";
 
 export default {
   components: {
     ImageNode,
+    TreeNode,
     BaseNode,
     Guideline
   },
-  computed: {},
+  computed: {
+    json() {
+      return this.$store.state.root;
+    }
+  },
   methods: {
     addRect(param) {
       this.rects.push(param);

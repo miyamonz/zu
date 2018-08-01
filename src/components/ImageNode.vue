@@ -1,7 +1,7 @@
 <template>
   <g>
     <text v-if="!fetched" :x="tx" :y="ty">{{text}}</text>
-    <image :x="rect.x" :y="rect.y" :width="rect.width" :href="url"/>
+    <image :x="x" :y="y" :width="width" :href="url"/>
   </g>
 </template>
 <script>
@@ -16,21 +16,31 @@ const loadImg = src => {
   });
 };
 
+const type = object => ({
+  default() {
+    return object;
+  }
+});
+const getIconURL = project => name =>
+  `https://scrapbox.io/api/pages/${project}/${name}/icon`;
+
 export default {
-  props: ["rect", "text"],
+  props: {
+    text: "",
+    x: type(0),
+    y: type(0),
+    width: type(100),
+    height: type(100)
+  },
   computed: {
     tx() {
-      let { x, width } = this.rect;
-      return x + width / 5;
+      return this.x + this.width / 2;
     },
     ty() {
-      let { y, height } = this.rect;
-      return y + height / 2;
+      return this.y + this.height / 2;
     },
     url() {
-      const project = "icons";
-      const url = `https://scrapbox.io/api/pages/${project}/${this.text}/icon`;
-      return url;
+      return getIconURL("icons")(this.text);
     }
   },
   watch: {
