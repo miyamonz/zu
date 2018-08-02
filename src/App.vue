@@ -5,6 +5,7 @@
       </div>
       <KeyInput @enter="text => $store.commit('addWord', text)"/>
      {{$store.state}}
+     <textarea cols="30" rows="10" onfocus="this.select()"> {{jsonStr}} </textarea>
   </div>
 </template>
 <script>
@@ -14,6 +15,11 @@ export default {
   components: {
     SVGArea,
     KeyInput
+  },
+  computed: {
+    jsonStr() {
+      return JSON.stringify(this.$store.state.root);
+    }
   },
   methods: {
     log(e) {
