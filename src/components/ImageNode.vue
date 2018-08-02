@@ -1,7 +1,12 @@
 <template>
   <g>
     <text v-if="!fetched" :x="tx" :y="ty">{{text}}</text>
-    <image :x="x" :y="y" :width="width" :href="url"/>
+    <image :x="tx" :y="ty" :width="width" :height="height" :href="url"
+    @mousedown="mousedown"
+    @mouseup="release"
+    @mouseleave="release"
+    @mousemove="mousemove"
+    />
   </g>
 </template>
 <script>
@@ -34,10 +39,10 @@ export default {
   },
   computed: {
     tx() {
-      return this.x + this.width / 2;
+      return this.pos.x - this.width / 2;
     },
     ty() {
-      return this.y + this.height / 2;
+      return this.pos.y - this.height / 2;
     },
     url() {
       return getIconURL("icons")(this.text);
@@ -48,9 +53,27 @@ export default {
       loadImg(url).then(() => (this.fetched = true));
     }
   },
-  methods: {},
+  methods: {
+    mousedown(e) {
+      this.pos = { x: e.clientX, y: e.clientY };
+      this.dragging = true;
+    },
+    release(e) {
+      this.dragging = false;
+    },
+    mousemove(e) {
+      if (this.dragging) {
+        this.pos = { x: e.clientX, y: e.clientY };
+        this.$emit("update:x", this.pos.x);
+        this.$emit("update:y", this.pos.y);
+      }
+    }
+  },
   data() {
     return {
+      downPos: { x: this.x, y: this.y },
+      pos: { x: this.x, y: this.y },
+      dragging: false,
       fetched: false
     };
   }
